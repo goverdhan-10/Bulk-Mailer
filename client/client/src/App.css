@@ -1,0 +1,440 @@
+/* --- 1. Reset & Variables --- */
+:root {
+  --primary: #2563eb;        /* Professional Blue */
+  --primary-hover: #1d4ed8;
+  --bg-color: #f0f2f5;       /* Light Cloud Gray */
+  --card-bg: #ffffff;
+  --text-main: #1f2937;
+  --text-light: #6b7280;
+  --border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- 2. Main Layout Container --- */
+.app-container {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* The Card that holds everything */
+.glass-card {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 1000px; /* Wide professional width */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden; /* For header color */
+  border: 1px solid white;
+}
+
+/* --- 3. Header --- */
+.app-header {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.header-content p {
+  margin: 8px 0 0;
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+/* --- 4. Form Layout --- */
+.form-content {
+  padding: 40px;
+}
+
+/* Two Column Grid for Emails/Names */
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+}
+
+.badge {
+  background: #eff6ff;
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Inputs & Textareas */
+input, textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: #f9fafb;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* --- 5. Rich Text Editor Fixes --- */
+.editor-wrapper {
+  background: white;
+  border-radius: 8px;
+}
+.custom-quill .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: #f8fafc;
+  border-color: var(--border);
+}
+.custom-quill .ql-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  min-height: 200px;
+  font-size: 16px;
+  border-color: var(--border);
+}
+
+/* --- 6. Action Bar (Scheduler + Button) --- */
+.action-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-top: 10px;
+}
+
+.scheduler-section {
+  flex: 1;
+}
+
+.scheduler-section input {
+  max-width: 300px;
+  margin-top: 5px;
+  background: white;
+}
+
+.hint {
+  display: block;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.send-btn {
+  padding: 16px 32px;
+  background-color: var(--primary);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+}
+
+.send-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- 7. Status Messages --- */
+.status-msg {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  animation: slideIn 0.3s ease;
+}
+
+.status-msg.success {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.status-msg.error {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 8. Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+  
+  .glass-card {
+    border-radius: 0; /* Full screen on mobile */
+    box-shadow: none;
+  }
+
+  .form-content {
+    padding: 20px;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr; /* Stack email and name */
+    gap: 0;
+  }
+
+  .action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .scheduler-section input {
+    max-width: 100%;
+  }
+
+  .send-btn {
+    width: 100%;
+  }
+}
+/* --- Help Link Styling --- */
+.help-link {
+    font-size: 12px;
+    color: #2563eb;
+    cursor: pointer;
+    background: #eff6ff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+    transition: background 0.2s;
+    font-weight: normal;
+}
+
+.help-link:hover {
+    background: #dbeafe;
+    text-decoration: underline;
+}
+
+/* --- Modal Overlay (Background Dimmer) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px); /* Blur effect on background */
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* --- Modal Box --- */
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* Modal Header */
+.modal-header {
+    background: #f8fafc;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #1e293b;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #ef4444;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.modal-body ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-body li {
+    margin-bottom: 8px;
+}
+
+.alert-box {
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    padding: 10px;
+    color: #9a3412;
+    font-size: 13px;
+    border-radius: 4px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 15px 20px;
+    background: #f8fafc;
+    text-align: right;
+    border-top: 1px solid #e2e8f0;
+}
+
+.modal-footer button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal-footer button:hover {
+    background: #1d4ed8;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* Add this to your App.css */
+
+.credentials-box {
+    background: #e0f2fe; /* Very light blue */
+    border: 1px solid #bae6fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.credentials-box h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #0369a1; /* Dark Blue */
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.credentials-box label {
+    color: #0c4a6e;
+}
+
+.security-note {
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.security-note a {
+    color: #0284c7;
+    font-weight: bold;
+    text-decoration: none;
+}
+.security-note a:hover {
+    text-decoration: underline;
+}
