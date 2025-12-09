@@ -7,11 +7,12 @@ import config from './config';
 
 function App() {
   // Credentials State
+  const [senderName, setSenderName] = useState(""); // <--- NEW: Name State
   const [senderEmail, setSenderEmail] = useState("");
   const [appPassword, setAppPassword] = useState("");
 
   // UI State
-  const [showGuide, setShowGuide] = useState(false); // <--- Controls the Popup
+  const [showGuide, setShowGuide] = useState(false);
 
   // Email Data State
   const [emailStr, setEmailStr] = useState("");
@@ -42,13 +43,15 @@ function App() {
 
     try {
       await axios.post(`${config.API_URL}/send-email`, {
+        senderName,    // <--- Sending the Name
         senderEmail,
         appPassword,
         emails,
         names,
         subject,
         content,
-        scheduledTime: scheduledTime || null
+        // FIX: Convert local time to UTC ISO String so server understands it
+        scheduledTime: scheduledTime ? new Date(scheduledTime).toISOString() : new Date().toISOString()
       });
       setStatus("✅ Success! Emails added to queue.");
     } catch (error) {
@@ -74,6 +77,18 @@ function App() {
           {/* --- CREDENTIALS SECTION --- */}
           <div className="credentials-box">
             <h3>🔐 Sender Credentials</h3>
+            
+            {/* NEW: Sender Name Input */}
+            <div className="form-group" style={{ marginBottom: '15px' }}>
+                <label>Your Name (Displayed to Receiver)</label>
+                <input 
+                    type="text" 
+                    placeholder="Ex: Goverdhan Gupta"
+                    value={senderName}
+                    onChange={(e) => setSenderName(e.target.value)}
+                />
+            </div>
+
             <div className="input-row">
                 <div className="form-group">
                     <label>Your Gmail Address</label>
@@ -87,7 +102,6 @@ function App() {
                 <div className="form-group">
                     <label>
                         App Password 
-                        {/* The Trigger Link */}
                         <span className="help-link" onClick={() => setShowGuide(true)}>
                             ❓ How do I get this?
                         </span>
@@ -101,11 +115,11 @@ function App() {
                 </div>
             </div>
             <p className="security-note">
-                Your credentials are never stored. They are used once to send the email.
+                Your credentials are never stored permanently. They are used once to process the queue.
             </p>
           </div>
           
-          {/* --- REST OF THE FORM (No changes here) --- */}
+          {/* --- RECIPIENTS SECTION --- */}
           <div className="input-row">
             <div className="form-group">
               <label>1. Recipient Emails <span className="badge">Comma Separated</span></label>
@@ -172,7 +186,7 @@ function App() {
         </div>
       </div>
         
-      <footer className="app-footer" style={{ textAlign: 'center', marginTop: '20px', color: 'white', fontSize: '0.9rem', opacity: 0.8 }}>
+      <footer className="app-footer" style={{ textAlign: 'center', marginTop: '20px', color: '#666', fontSize: '0.9rem' }}>
           <p>© 2025 All rights reserved by Goverdhan Gupta.</p>
       </footer>
 
