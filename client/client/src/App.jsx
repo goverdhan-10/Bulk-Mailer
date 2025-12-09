@@ -171,6 +171,10 @@ function App() {
 
         </div>
       </div>
+        
+      <footer className="app-footer" style={{ textAlign: 'center', marginTop: '20px', color: 'white', fontSize: '0.9rem', opacity: 0.8 }}>
+          <p>© 2025 All rights reserved by Goverdhan Gupta.</p>
+      </footer>
 
       {/* --- POPUP MODAL (THE GUIDE) --- */}
       {showGuide && (
