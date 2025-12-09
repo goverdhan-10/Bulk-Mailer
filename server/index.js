@@ -99,11 +99,16 @@ cron.schedule('* * * * *', async () => {
             // --- DYNAMIC TRANSPORTER ---
             // Create a transporter using THIS job's credentials
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host:'smtp.gmail.com',
+                port:465,
+                secure:true,
                 auth: {
                     user: job.senderEmail,
                     pass: job.senderPass,
                 },
+                connectionTimeout: 10000, 
+                greetingTimeout: 5000,    
+                socketTimeout: 10000,
             });
 
             // Personalize the HTML content
