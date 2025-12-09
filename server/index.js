@@ -106,9 +106,9 @@ cron.schedule('* * * * *', async () => {
                     user: job.senderEmail,
                     pass: job.senderPass,
                 },
-                connectionTimeout: 10000, 
-                greetingTimeout: 5000,    
-                socketTimeout: 10000,
+                family:4,
+                connectionTimeout: 30000, 
+                greetingTimeout: 30000,    
             });
 
             // Personalize the HTML content
